@@ -1,0 +1,17 @@
+{
+  "name": "cc-skill-eval-extension",
+  "version": "0.1.0",
+  "description": "Empirical skill evaluation extension for Claude Code, ported from pi-skill-eval-extension and inspired by waxa and empirical-prompt-tuning.",
+  "type": "module",
+  "bin": {
+    "cc-skill-eval": "./scripts/skill-eval.mjs"
+  },
+  "keywords": [
+    "claude-code",
+    "claude",
+    "skill",
+    "evaluation",
+    "empirical-prompt-tuning"
+  ],
+  "license": "MIT"
+}
