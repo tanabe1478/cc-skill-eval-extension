@@ -139,10 +139,13 @@ function parseSelfReport(output) {
     if (!m) continue;
     const idx2 = Number(m[1]) - 1;
     const rest = m[2];
+    // 番号直後のマーカー部分 (説明文の "- ..." より前) のみを判定対象にする。
+    // 本文に "fail" / "pass" 等の英単語が含まれても判定がブレないようにする。
+    const marker = rest.split(/\s*[-—:：]/, 1)[0];
     let status = "missing";
-    if (/○|〇|PASS|pass|ok|達成|満た/.test(rest) && !/未達|不達/.test(rest)) status = "pass";
-    if (/partial|部分|△/.test(rest)) status = "partial";
-    if (/×|✗|FAIL|fail|未達|不達|満たしていない/.test(rest)) status = "fail";
+    if (/○|〇|PASS|pass|OK|ok|達成|満た/.test(marker) && !/未達|不達/.test(marker)) status = "pass";
+    if (/partial|部分|△/i.test(marker)) status = "partial";
+    if (/×|✗|FAIL|fail|未達|不達|満たしていない/.test(marker)) status = "fail";
     requirementStatuses[idx2] = status;
   }
   return { phases, unclear, fillIns, retries, requirementStatuses, raw };
